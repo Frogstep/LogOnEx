@@ -1,7 +1,5 @@
 package io.ilyasin.logonex.data.network
 
-import io.ilyasin.logonex.data.network.schemas.Product
-
 data class ProductData(
     val id: Int,
     val title: String,
@@ -14,18 +12,13 @@ data class ProductData(
     val category: String,
     val thumbnail: String,
     val images: List<String>
-)
-
-fun Product.toProductData() = ProductData(
-    id = id,
-    title = title,
-    description = description,
-    price = price,
-    discountPercentage = discountPercentage,
-    rating = rating,
-    stock = stock,
-    brand = brand,
-    category = category,
-    thumbnail = thumbnail,
-    images = images
-)
+){
+    fun formattedPrice(): String{
+        val formatted = String.format("%.2f", price)
+        return if(formatted.endsWith(".00")){
+            formatted.substring(0, formatted.length - 3)
+        }else if(formatted.endsWith(".0")){
+            formatted.substring(0, formatted.length - 2)
+        }else formatted
+    }
+}

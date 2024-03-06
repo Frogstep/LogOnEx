@@ -19,7 +19,6 @@ class ProductsViewModel @Inject constructor(private val productsUseCase: Product
     private val _products: MutableState<List<ProductData>> = mutableStateOf(emptyList())
     val products: State<List<ProductData>> = _products
 
-
     fun getProductsByCategory(category: String) {
         viewModelScope.launch(Dispatchers.Default) {
             productsUseCase.getProductsByCategory(category).collect { products ->

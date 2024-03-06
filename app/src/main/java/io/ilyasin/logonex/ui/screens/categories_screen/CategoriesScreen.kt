@@ -43,6 +43,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 import io.ilyasin.logonex.R
 import io.ilyasin.logonex.data.LoadingState
 import io.ilyasin.logonex.data.network.CategoryData
@@ -71,7 +72,6 @@ fun CategoriesScreen(
         Scaffold(
             modifier = Modifier
                 .padding(top = padding, bottom = padding, start = padding, end = padding),
-           //     .fillMaxSize(),
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -126,12 +126,12 @@ fun ErrorView(viewModel: CategoriesViewModel, navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = Color.Red, shape = RoundedCornerShape(5.dp))
-                    .padding(top = smallPadding, bottom = smallPadding)
+                    .padding(padding)
             )
         }
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier.padding(top = padding, bottom = padding)) {
+            Box(modifier = Modifier.padding(top = padding)) {
                 Text(
                     text = stringResource(R.string.failed_to_load_data_showing_cache),
                     color = Color.White,
@@ -176,9 +176,7 @@ fun CategoryItem(category: CategoryData, navController: NavController) {
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
         ),
-        shape = RoundedCornerShape(cornerRadius), elevation = CardDefaults.cardElevation(
-            defaultElevation = 0.dp
-        )
+        shape = RoundedCornerShape(cornerRadius)
     ) {
         ConstraintLayout(
             modifier = Modifier
@@ -190,6 +188,7 @@ fun CategoryItem(category: CategoryData, navController: NavController) {
             GlideImage(
                 model = category.imageUrl,
                 contentDescription = stringResource(R.string.thumbnail),
+                failure = placeholder(R.drawable.ic_image_error),
                 modifier = Modifier
                     .size(imageSize)
                     .padding(end = padding)
