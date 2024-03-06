@@ -4,6 +4,9 @@ import io.ilyasin.logonex.data.network.schemas.ServerResponse
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * Data source for network requests
+ */
 class NetworkDataSource @Inject constructor(private val apiService: ApiService) {
 
     companion object {

@@ -92,6 +92,8 @@ dependencies {
     //Glide
     implementation(libs.compose)
 
+    //Splashscreen
+    implementation(libs.androidx.core.splashscreen)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

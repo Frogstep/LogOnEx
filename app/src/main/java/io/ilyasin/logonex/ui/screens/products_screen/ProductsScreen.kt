@@ -42,7 +42,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import io.ilyasin.logonex.R
-import io.ilyasin.logonex.data.network.ProductApiData
+import io.ilyasin.logonex.data.network.ProductData
 import io.ilyasin.logonex.ui.theme.BackgroundLightGray
 import io.ilyasin.logonex.ui.theme.DarkGreenLabel
 import io.ilyasin.logonex.ui.theme.Dimens
@@ -70,7 +70,7 @@ fun ProductsScreen(
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color.White,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = Color.Blue,
                     ),
                     title = {
                         Text(stringResource(R.string.category, category))
@@ -79,7 +79,8 @@ fun ProductsScreen(
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.back_button)
+                                contentDescription = stringResource(R.string.back_button),
+                                tint = Color.Black
                             )
                         }
                     }
@@ -117,7 +118,7 @@ fun ProductList(innerPadding: PaddingValues, viewModel: ProductsViewModel) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ProductItem(product: ProductApiData) {
+fun ProductItem(product: ProductData) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
@@ -128,7 +129,7 @@ fun ProductItem(product: ProductApiData) {
             modifier = Modifier
                 .fillMaxSize()
                 .height(itemHeight)
-                .padding(Dimens.padding)
+                .padding(padding)
 
         ) {
             val (imageRef, titleRef, distinctRef, totalRef) = createRefs()
@@ -138,7 +139,7 @@ fun ProductItem(product: ProductApiData) {
                 failure = placeholder(R.drawable.ic_image_error),
                 modifier = Modifier
                     .size(imageSize)
-                    .padding(end = Dimens.padding)
+                    .padding(end = padding)
                     .clip(RoundedCornerShape(Dimens.smallCornerRadius))
                     .background(ImageBackgroundColor)
                     .constrainAs(imageRef) {

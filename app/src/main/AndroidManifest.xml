@@ -18,7 +18,7 @@
         <activity
             android:name=".ui.screens.home_screen.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.LogOnEx">
+            android:theme="@style/Theme.SplashScreen.LogOnSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -12,6 +12,9 @@ import io.ilyasin.logonex.data.db.ProductDatabase
 import io.ilyasin.logonex.data.network.ApiService
 import io.ilyasin.logonex.data.network.NetworkDataSource
 
+/**
+ * Hilt module provides dependencies for injections.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {

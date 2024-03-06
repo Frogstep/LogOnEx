@@ -21,7 +21,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -60,6 +59,9 @@ import io.ilyasin.logonex.ui.theme.Dimens.titleTextSize
 import io.ilyasin.logonex.ui.theme.ErrorBackgroundColor
 import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 
+/**
+ * Screen contains list of categories
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(
@@ -74,7 +76,7 @@ fun CategoriesScreen(
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color.White,
-                        titleContentColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = Color.Blue,
                     ),
                     title = {
                         Text(stringResource(R.string.categories))
@@ -83,7 +85,8 @@ fun CategoriesScreen(
                         IconButton(onClick = { viewModel.reDownloadProducts() }) {
                             Icon(
                                 imageVector = Icons.Filled.Refresh,
-                                contentDescription = stringResource(R.string.reload)
+                                contentDescription = stringResource(R.string.reload),
+                                tint = Color.Black
                             )
                         }
                     }
@@ -107,7 +110,7 @@ fun CategoriesScreen(
 @Composable
 fun Progress() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center), color = Color.Blue)
     }
 }
 

@@ -18,7 +18,7 @@ interface ApiService {
             setLevel(HttpLoggingInterceptor.Level.BODY)
         }
 
-        private val client = OkHttpClient.Builder().addInterceptor(interceptor).build();
+        private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL)
@@ -26,6 +26,6 @@ interface ApiService {
             .client(client)
             .build()
 
-        fun create() = retrofit.create(ApiService::class.java)
+        fun create(): ApiService = retrofit.create(ApiService::class.java)
     }
 }

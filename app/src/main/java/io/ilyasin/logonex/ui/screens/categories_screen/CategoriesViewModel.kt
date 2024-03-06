@@ -14,6 +14,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel for [CategoriesScreen]
+ */
 @HiltViewModel
 class CategoriesViewModel @Inject constructor(private val categoriesUseCase: CategoriesUseCase) : ViewModel() {
 
@@ -23,10 +26,13 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Cat
     private val _state: MutableState<LoadingState> = mutableStateOf(LoadingState.Initialized)
     val state: State<LoadingState> = _state
 
+    /**
+     * Initialize the viewModel by listening to the progress state and downloading the products
+     */
     init {
         listenToProgressState()
         categoriesUseCase.downloadProducts()
-        getCategories()
+        collectCategories()
     }
 
     private fun listenToProgressState() {
@@ -43,7 +49,7 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Cat
         categoriesUseCase.downloadProducts()
     }
 
-    private fun getCategories() {
+    private fun collectCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             categoriesUseCase.getCategories().collect {
                 withContext(Dispatchers.Main) {

@@ -3,9 +3,12 @@ package io.ilyasin.logonex.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import io.ilyasin.logonex.data.network.ProductApiData
-import io.ilyasin.logonex.data.network.schemas.Product
+import io.ilyasin.logonex.data.network.ProductData
+import io.ilyasin.logonex.data.network.schemas.ProductApiData
 
+/**
+ * Table for storing products
+ */
 @Entity(tableName = "products")
 data class ProductEntity(@PrimaryKey val id: Int,
                          @ColumnInfo(name = "title") val title: String,
@@ -20,7 +23,12 @@ data class ProductEntity(@PrimaryKey val id: Int,
                          @ColumnInfo(name = "images") val images: List<String>)
 
 
-fun Product.toProductEntity() : ProductEntity {
+/*
+    In this application these classes are identical, but I still prefer to follow the principle of separation
+    of concerns by employing distinct classes for network, database, and UI. This approach promotes better code maintainability,
+    re-usability, and testability in the long run.
+ */
+fun ProductApiData.toProductEntity() : ProductEntity {
     return ProductEntity(
         id = id,
         title = title,
@@ -36,8 +44,8 @@ fun Product.toProductEntity() : ProductEntity {
     )
 }
 
-fun ProductEntity.toProductData() : ProductApiData {
-    return ProductApiData(
+fun ProductEntity.toProductData() : ProductData {
+    return ProductData(
         id = id,
         title = title,
         description = description,
