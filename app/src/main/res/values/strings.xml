@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LogOnEx</string>
+    <string name="categories">Categories</string>
+    <string name="reload">Reload</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="price">Price: %1$s</string>
+    <string name="in_stock">In stock: %1$s</string>
+    <string name="failed_to_load_data">Failed to download data</string>
+    <string name="failed_to_load_data_showing_cache">Failed to download, showing cached data</string>
+    <string name="distinct_count">Products: %1$s</string>
+    <string name="total_count">Total: %1$s</string>
+    <string name="back_button">Back button</string>
+    <string name="category">Category: %1$s</string>
+</resources>
