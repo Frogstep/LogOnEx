@@ -3,7 +3,7 @@ package io.ilyasin.logonex.data.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import io.ilyasin.logonex.data.network.ProductData
+import io.ilyasin.logonex.data.network.ProductApiData
 import io.ilyasin.logonex.data.network.schemas.Product
 
 @Entity(tableName = "products")
@@ -36,8 +36,8 @@ fun Product.toProductEntity() : ProductEntity {
     )
 }
 
-fun ProductEntity.toProductData() : ProductData {
-    return ProductData(
+fun ProductEntity.toProductData() : ProductApiData {
+    return ProductApiData(
         id = id,
         title = title,
         description = description,

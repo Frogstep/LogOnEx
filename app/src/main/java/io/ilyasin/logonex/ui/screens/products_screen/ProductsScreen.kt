@@ -1,6 +1,5 @@
 package io.ilyasin.logonex.ui.screens.products_screen
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,7 +42,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
 import io.ilyasin.logonex.R
-import io.ilyasin.logonex.data.network.ProductData
+import io.ilyasin.logonex.data.network.ProductApiData
 import io.ilyasin.logonex.ui.theme.BackgroundLightGray
 import io.ilyasin.logonex.ui.theme.DarkGreenLabel
 import io.ilyasin.logonex.ui.theme.Dimens
@@ -56,7 +55,7 @@ import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductsScreen(
-    category: String, navController: NavController, scrollState: ScrollState,
+    category: String, navController: NavController,
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
 
@@ -118,7 +117,7 @@ fun ProductList(innerPadding: PaddingValues, viewModel: ProductsViewModel) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ProductItem(product: ProductData) {
+fun ProductItem(product: ProductApiData) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White,

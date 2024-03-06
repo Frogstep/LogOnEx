@@ -43,7 +43,7 @@ class CategoriesViewModel @Inject constructor(private val categoriesUseCase: Cat
         categoriesUseCase.downloadProducts()
     }
 
-    fun getCategories() {
+    private fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             categoriesUseCase.getCategories().collect {
                 withContext(Dispatchers.Main) {

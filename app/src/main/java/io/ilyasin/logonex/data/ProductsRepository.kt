@@ -4,12 +4,11 @@ import io.ilyasin.logonex.data.db.ProductDatabase
 import io.ilyasin.logonex.data.db.toProductData
 import io.ilyasin.logonex.data.db.toProductEntity
 import io.ilyasin.logonex.data.network.NetworkDataSource
-import io.ilyasin.logonex.data.network.ProductData
+import io.ilyasin.logonex.data.network.ProductApiData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ class ProductsRepository @Inject constructor(
     override fun progressState() = _loadingState.asStateFlow()
 
 
-    override suspend fun getAllProducts(): Flow<List<ProductData>> {
+    override suspend fun getAllProducts(): Flow<List<ProductApiData>> {
         return database.productDao().getAllProducts().map { entities ->
             entities.map { entity ->
                 entity.toProductData()
@@ -46,7 +45,7 @@ class ProductsRepository @Inject constructor(
         }
     }
 
-    override suspend fun getProductsByCategory(category: String): Flow<List<ProductData>> {
+    override suspend fun getProductsByCategory(category: String): Flow<List<ProductApiData>> {
         return database.productDao().getProductsWithCategory(category).map { entities ->
             entities.map { entity ->
                 entity.toProductData()

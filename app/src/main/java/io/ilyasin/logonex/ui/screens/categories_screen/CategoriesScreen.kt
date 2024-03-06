@@ -1,6 +1,5 @@
 package io.ilyasin.logonex.ui.screens.categories_screen
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -47,8 +46,8 @@ import com.bumptech.glide.integration.compose.placeholder
 import io.ilyasin.logonex.R
 import io.ilyasin.logonex.data.LoadingState
 import io.ilyasin.logonex.data.network.CategoryData
+import io.ilyasin.logonex.ui.Screen
 import io.ilyasin.logonex.ui.theme.BackgroundLightGray
-import io.ilyasin.logonex.ui.theme.Dimens
 import io.ilyasin.logonex.ui.theme.Dimens.cornerRadius
 import io.ilyasin.logonex.ui.theme.Dimens.imageSize
 import io.ilyasin.logonex.ui.theme.Dimens.itemHeight
@@ -65,7 +64,6 @@ import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 @Composable
 fun CategoriesScreen(
     navController: NavController,
-    scrollState: ScrollState,
     viewModel: CategoriesViewModel = hiltViewModel()
 ) {
     Surface(color = BackgroundLightGray) {
@@ -75,7 +73,7 @@ fun CategoriesScreen(
             topBar = {
                 TopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.White,//MaterialTheme.colorScheme.primaryContainer,
+                        containerColor = Color.White,
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     ),
                     title = {
@@ -171,7 +169,7 @@ fun CategoryItem(category: CategoryData, navController: NavController) {
 
     Card(
         modifier = Modifier.clickable {
-            navController.navigate("Products/${category.category}")
+            navController.navigate("${Screen.Products.route}/${category.category}")
         },
         colors = CardDefaults.cardColors(
             containerColor = Color.White,

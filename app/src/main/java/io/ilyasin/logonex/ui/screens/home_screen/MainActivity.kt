@@ -14,8 +14,6 @@ import io.ilyasin.logonex.ui.theme.LogOnExTheme
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    //val viewModel: CategoriesViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,19 +26,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    LogOnExTheme {
-//        Greeting("Android")
-//    }
-//}

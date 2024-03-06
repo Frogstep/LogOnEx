@@ -1,6 +1,6 @@
 package io.ilyasin.logonex.data.network
 
-data class ProductData(
+data class ProductApiData(
     val id: Int,
     val title: String,
     val description: String,
