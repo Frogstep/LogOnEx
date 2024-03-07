@@ -7,3 +7,6 @@ The application is built following the Clean Architecture principles, which prom
 3) Data Layer: Responsible for data handling, including fetching data from external API, parsing it into a format usable by the application and caching in local Database
 
 Jetpack Compose was used for constructing the application's user interface (UI).
+
+Products caching policy:
+The product data is refreshed each time the application starts and by tapping the 'Refresh' button on the Categories screen.
