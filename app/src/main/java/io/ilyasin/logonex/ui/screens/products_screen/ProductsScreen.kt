@@ -51,7 +51,9 @@ import io.ilyasin.logonex.ui.theme.Dimens.itemHeight
 import io.ilyasin.logonex.ui.theme.Dimens.padding
 import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 
-
+/**
+ * Products screen. It shows the list of products in the selected category
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductsScreen(

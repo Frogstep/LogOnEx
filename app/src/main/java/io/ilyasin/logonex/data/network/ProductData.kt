@@ -1,5 +1,8 @@
 package io.ilyasin.logonex.data.network
 
+/**
+ * Data class representing a product. Used to display the product data in the UI
+ */
 data class ProductData(
     val id: Int,
     val title: String,

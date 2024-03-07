@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel for [ProductsScreen]
+ */
 @HiltViewModel
 class ProductsViewModel @Inject constructor(private val productsUseCase: ProductsByCategoryUseCase) : ViewModel() {
 

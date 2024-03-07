@@ -11,6 +11,9 @@ import androidx.navigation.navArgument
 import io.ilyasin.logonex.ui.screens.categories_screen.CategoriesScreen
 import io.ilyasin.logonex.ui.screens.products_screen.ProductsScreen
 
+/**
+ * Main entry point for the app UI
+ */
 @Composable
 fun ProductsApp() {
     GlobalNavigation()

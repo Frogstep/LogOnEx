@@ -2,6 +2,9 @@ package io.ilyasin.logonex.data.network.schemas
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Data class to represent the product data received from the server
+ */
 data class ProductApiData(@SerializedName("id") val id: Int,
                           @SerializedName("title") val title: String,
                           @SerializedName("description") val description: String,
