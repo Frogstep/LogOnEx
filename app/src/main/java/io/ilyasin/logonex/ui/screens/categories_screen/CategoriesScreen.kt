@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,14 +60,22 @@ import io.ilyasin.logonex.ui.theme.Dimens.titleTextSize
 import io.ilyasin.logonex.ui.theme.ErrorBackgroundColor
 import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 
+
+@Composable
+fun CategoriesScreen(navController: NavController, viewModel: CategoriesViewModel = hiltViewModel()) {
+    CategoriesScreenContent(navController, viewModel.categories, viewModel.state, viewModel::reDownloadProducts)
+}
+
 /**
  * Screen contains list of categories
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesScreen(
+fun CategoriesScreenContent(
     navController: NavController,
-    viewModel: CategoriesViewModel = hiltViewModel()
+    listState: State<List<CategoryData>>,
+    loadingState: State<LoadingState>,
+    downloadProducts: () -> Unit
 ) {
     Surface(color = BackgroundLightGray) {
         Scaffold(
@@ -82,7 +91,7 @@ fun CategoriesScreen(
                         Text(stringResource(R.string.categories))
                     },
                     actions = {
-                        IconButton(onClick = { viewModel.reDownloadProducts() }) {
+                        IconButton(onClick = { downloadProducts() }) {
                             Icon(
                                 imageVector = Icons.Filled.Refresh,
                                 contentDescription = stringResource(R.string.reload),
@@ -95,12 +104,13 @@ fun CategoriesScreen(
         ) { innerPadding ->
             Box(
                 modifier = Modifier
-                    .padding(innerPadding).background(BackgroundLightGray), contentAlignment = Alignment.Center
+                    .padding(innerPadding)
+                    .background(BackgroundLightGray), contentAlignment = Alignment.Center
             ) {
-                when (viewModel.state.value) {
+                when (loadingState.value) {
                     LoadingState.InProgress, LoadingState.Initialized -> Progress()
-                    LoadingState.Success -> CategoriesList(viewModel = viewModel, navController = navController)
-                    is LoadingState.Failure -> ErrorView(viewModel = viewModel, navController = navController)
+                    LoadingState.Success -> CategoriesList(listState, navController = navController)
+                    is LoadingState.Failure -> ErrorView(listState, navController = navController)
                 }
             }
         }
@@ -115,8 +125,8 @@ fun Progress() {
 }
 
 @Composable
-fun ErrorView(viewModel: CategoriesViewModel, navController: NavController) {
-    if (viewModel.categories.value.isEmpty()) {
+fun ErrorView(state: State<List<CategoryData>>, navController: NavController) {
+    if (state.value.isEmpty()) {
         Box(
             modifier = Modifier
                 .fillMaxSize(), contentAlignment = Alignment.Center
@@ -144,22 +154,22 @@ fun ErrorView(viewModel: CategoriesViewModel, navController: NavController) {
                 )
             }
             Spacer(modifier = Modifier.height(listDividerHeight))
-            CategoriesList(viewModel = viewModel, navController = navController)
+            CategoriesList(state, navController = navController)
         }
     }
 }
 
 @Composable
-fun CategoriesList(viewModel: CategoriesViewModel, navController: NavController) {
+fun CategoriesList(state: State<List<CategoryData>>, navController: NavController) {
     val listState = rememberLazyListState()
     LazyColumn(
         state = listState, modifier = Modifier
             .fillMaxSize()
             .padding(top = padding)
     ) {
-        items(viewModel.categories.value.size) { index ->
+        items(state.value.size, key = { index -> state.value[index].category }) { index ->
             CategoryItem(
-                category = viewModel.categories.value[index], navController
+                category = state.value[index], navController
             )
             Spacer(modifier = Modifier.height(listDividerHeight))
         }
@@ -237,3 +247,5 @@ fun CategoryItem(category: CategoryData, navController: NavController) {
         }
     }
 }
+
+

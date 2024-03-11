@@ -25,6 +25,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,18 +51,25 @@ import io.ilyasin.logonex.ui.theme.Dimens.itemHeight
 import io.ilyasin.logonex.ui.theme.Dimens.padding
 import io.ilyasin.logonex.ui.theme.ImageBackgroundColor
 
+
+@Composable
+fun ProductsScreen(category: String, navController: NavController, viewModel: ProductsViewModel = hiltViewModel()) {
+    ProductsScreenContent(category, navController, viewModel.products, viewModel::getProductsByCategory)
+}
+
 /**
  * Products screen. It shows the list of products in the selected category
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductsScreen(
+fun ProductsScreenContent(
     category: String, navController: NavController,
-    viewModel: ProductsViewModel = hiltViewModel()
+    productsState: State<List<ProductData>>,
+    getProductsByCategory: (String) -> Unit
 ) {
 
     LaunchedEffect(category) {
-        viewModel.getProductsByCategory(category)
+        getProductsByCategory(category)
     }
     Surface(color = BackgroundLightGray) {
         Scaffold(
@@ -88,13 +96,13 @@ fun ProductsScreen(
                 )
             },
         ) { innerPadding ->
-            ProductList(innerPadding, viewModel)
+            ProductList(innerPadding, productsState)
         }
     }
 }
 
 @Composable
-fun ProductList(innerPadding: PaddingValues, viewModel: ProductsViewModel) {
+fun ProductList(innerPadding: PaddingValues, productsState: State<List<ProductData>>) {
     Box(
         modifier = Modifier
             .padding(innerPadding)
@@ -107,9 +115,9 @@ fun ProductList(innerPadding: PaddingValues, viewModel: ProductsViewModel) {
                 .fillMaxSize()
                 .padding(top = padding)
         ) {
-            items(viewModel.products.value.size) { index ->
+            items(productsState.value.size) { index ->
                 ProductItem(
-                    product = viewModel.products.value[index]
+                    product = productsState.value[index]
                 )
                 Spacer(modifier = Modifier.height(Dimens.listDividerHeight))
             }
